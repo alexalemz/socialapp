@@ -24,10 +24,11 @@ router.get('/', function(req, res) {
 router.get('/profile', function(req, res) {
   const usernameSpecified = JSON.stringify(req.query) !== '{}';
   const { username } = usernameSpecified ? req.query : req.user;
+  console.log('in get profile, req.query', req.query)
 
   db.User.findOne({
     where: { username },
-    attributes: ['username', 'email'], // only return what we need
+    attributes: ['username', 'email', 'name', 'picture', 'bio'], // only return what we need
     // include: [{ model: db.User, as: 'Followed' }]
     // include: [{association: 'Followed',  attributes: ['id', 'username']}]
     // include: [{ model: db.User, through: 'Follows' }]
@@ -36,6 +37,7 @@ router.get('/profile', function(req, res) {
       {association: 'Followeds', attributes: ['username']}
     ]
   }).then(dbUser => {
+    console.log('dbUser', dbUser.get({plain: true}))
     // Add an attribute of whether the current user is following this user.
     // Check if req.user.username is in db.User.Followers
     const isFollowing = dbUser.Followers.some(follower => {
@@ -44,12 +46,16 @@ router.get('/profile', function(req, res) {
 
     const isCurrentUser = dbUser.username === req.user.username;
 
-    const { username, email, Followers, Followeds } = dbUser;
-    let dbUser2 = {
-      username, email, Followers, Followeds, isFollowing, isCurrentUser
-    }
+    // const { username, email, Followers, Followeds } = dbUser;
+    // let dbUser2 = {
+    //   username, email, Followers, Followeds, isFollowing, isCurrentUser
+    // }
 
-    res.json(dbUser2)
+    // res.json(dbUser2)
+
+    // Create a new object, with the properties of dbUser plus isCurrentUser and isFollowing
+    let dbUser3 = {...dbUser.get({plain: true}), isCurrentUser, isFollowing};
+    res.json(dbUser3)
   }).catch(err => res.send(err))
 })
 

@@ -23,7 +23,7 @@ const Header = (props) => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">Social App</a>
+      <Link className="navbar-brand" to="/">Social App</Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -31,6 +31,8 @@ const Header = (props) => {
         <div className="navbar-nav">
           <NavLink exact to="/" className="nav-item nav-link">Home</NavLink>
           <NavLink exact to="/users" className="nav-item nav-link">Users</NavLink>
+          {/* Link to take user to their own profile page */}
+          {accountInfo.username && <NavLink exact to={`/users/${accountInfo.username}`} className="nav-item nav-link">Profile</NavLink>}
         </div>
       </div>
       {/* <div>
