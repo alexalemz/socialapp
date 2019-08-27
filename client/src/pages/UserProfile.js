@@ -14,6 +14,8 @@ export default class Home extends Component {
     followeds: [],
     isFollowing: undefined,
     isCurrentUser: undefined,
+    bio: undefined,
+    picture: undefined,
   }
   
   componentDidMount() {
@@ -33,7 +35,9 @@ export default class Home extends Component {
 
     API.getUserProfile({username}).then(res => {
       console.log('UserProfile', res.data)
-      const { username, name, email, Followers, Followeds, isFollowing, isCurrentUser } = res.data;
+      const { username, name, email, Followers, Followeds, isFollowing, isCurrentUser, bio } = res.data;
+      let picture = res.data.picture && JSON.parse(res.data.picture).url;
+      
       this.setState({
         username,
         name,
@@ -41,6 +45,8 @@ export default class Home extends Component {
         followeds: Followeds,
         isFollowing,
         isCurrentUser,
+        bio,
+        picture,
       })
     })
   }
@@ -64,7 +70,7 @@ export default class Home extends Component {
   }
   
   render() {
-    const { username, name, email, followers, followeds, isFollowing, isCurrentUser } = this.state;
+    const { username, name, email, followers, followeds, isFollowing, isCurrentUser, picture, bio } = this.state;
     const userPath = `/users/${username}`;
       
     return (
@@ -98,8 +104,10 @@ export default class Home extends Component {
         <div className="row">
           <div className="col-sm-3">
             {/* Profile info (including bio, joined date, website...) */}
-            <h5>{name}</h5>
+            <h4>{name}</h4>
             <p>{`@${username}`}</p>
+            {picture && <img style={{maxWidth: '75%', maxHeight: '75%', borderRadius: '10%'}} src={picture} />}
+            {bio && <p className='bio'>{`${bio}`}</p> }
             {/* 
               <Link to={`/users/${username}/followers`}>{followers.length} followers</Link> <br/>
               <Link to={`/users/${username}/following`}>{followeds.length} following</Link>

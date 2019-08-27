@@ -2,6 +2,18 @@ var db = require('../../models');
 var express = require('express');
 var router = express.Router();
 
+// import { upload } from '../../config/middleware/multer';
+const { upload } = require('../../config/middleware/multer');
+
+// For converting the profile picture file in memory to dataURI, so it can be uploaded to Cloudinary
+const path = require('path');
+const Datauri = require('datauri');
+const datauri = new Datauri();
+
+// Import the Cloudinary uploader and set the config to my account
+const { cloudinaryConfig, uploader } = require('../../config/cloudinaryConfig');
+cloudinaryConfig();
+
 router.get('/', function(req, res) {
   // res.send("User api");
   const { UserId, username } = req.query;
@@ -57,6 +69,53 @@ router.get('/profile', function(req, res) {
     let dbUser3 = {...dbUser.get({plain: true}), isCurrentUser, isFollowing};
     res.json(dbUser3)
   }).catch(err => res.send(err))
+})
+
+// Route to update or add user profile details.
+router.post('/profile', upload.single('profilepicture'), function(req, res) {
+  // console.log('In post /api/users/profile')
+  console.log('Req.Body', JSON.stringify(req.body))
+  console.log('Req.Body', req.body)
+  console.log('Req.File', req.file)
+
+  const { name, bio } = req.body;
+
+  if (req.file) {
+    // Convert req.file from a buffer to a dataURI
+    datauri.format(path.extname(req.file.originalname), req.file.buffer);
+    const file = datauri.content;
+
+    console.log('file', file)
+  
+    // Upload the file with Cloudinary
+    uploader.upload(file)
+      .then(image => {
+        // Need to save the image info into the database, 
+        // then associate the URL with the user for their profile picture. 
+        const picture = JSON.stringify({id: image.public_id, url: image.url});
+        
+        // Find the logged-in user, then update the fields.
+        db.User.update({ name, bio, picture }, { where: { id: req.user.id } })
+          .then(dbUser => {
+            res.sendStatus(200);
+          }).catch(err => res.json(err))
+
+        // res.json({ data: { image } })
+      }).catch(err => {
+        res.json(err)
+      })
+
+  }
+  else {
+    // Find the logged-in user, then update the fields.
+    db.User.update({ name, bio }, { where: { id: req.user.id } })
+    .then(dbUser => {
+      res.sendStatus(200);
+    }).catch(err => res.json(err))
+
+    // res.json('No file was attached')
+  }
+  
 })
 
 // Route to follow another user. Provide the username of the user to follow.

@@ -43,7 +43,7 @@ export default class Login extends Component {
           const userInfo = res.data;
           updateAccount(userInfo)
           console.log(userInfo);
-          this.props.history.push('/')
+          this.props.history.push('/editprofile')
         })
       })
     }

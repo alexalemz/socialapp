@@ -19,6 +19,9 @@ export default {
   getUserProfile: function(data) {
     return axios.get('/api/users/profile', {params: data});
   },
+  editUserProfile: function(data) {
+    return axios.post('/api/users/profile', data);
+  },
   follow: function(data) {
     return axios.post('/api/users/follow', data);
   },
