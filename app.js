@@ -2,6 +2,10 @@ require('dotenv').config()
 var express = require('express');
 var path = require('path');
 var bodyParser = require("body-parser");
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 var cookieParser = require('cookie-parser');
 const routes = require("./routes");
 var session = require("express-session");
