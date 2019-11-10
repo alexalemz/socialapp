@@ -24,7 +24,8 @@ router.get('/', function(req, res) {
   // console.log("UserId", typeof UserId)
   // console.log("searchParams", searchParams)
   db.User.findAll({
-    where: searchParams
+    where: searchParams,
+    attributes: ['id', 'username', 'email', 'name', 'picture', 'bio'], // only return what we need
   }).then(function(dbUsers) {
     res.json(dbUsers);
   })
