@@ -2,10 +2,6 @@ require('dotenv').config()
 var express = require('express');
 var path = require('path');
 var bodyParser = require("body-parser");
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
 var cookieParser = require('cookie-parser');
 const routes = require("./routes");
 var session = require("express-session");
@@ -29,7 +25,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+// else {
+//   app.use(express.static(path.join(__dirname, 'public')));
+// }
 // We need to use sessions to keep track of our user's login status
 app.use(session({ 
   secret: "keyboard cat", 
