@@ -45,8 +45,8 @@ router.get('/profile', function(req, res) {
     // include: [{association: 'Followed',  attributes: ['id', 'username']}]
     // include: [{ model: db.User, through: 'Follows' }]
     include: [
-      {association: 'Followers', attributes: ['username']}, 
-      {association: 'Followeds', attributes: ['username']}
+      {association: 'Followers', attributes: ['username', 'name', 'picture', 'bio']}, 
+      {association: 'Followeds', attributes: ['username', 'name', 'picture', 'bio']}
     ]
   }).then(dbUser => {
     console.log('dbUser', dbUser.get({plain: true}))

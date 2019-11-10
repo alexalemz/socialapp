@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
     // Display Name (Full name)
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     // Bio/description
     bio: {

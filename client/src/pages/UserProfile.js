@@ -113,7 +113,7 @@ export default class Home extends Component {
               <Link to={`/users/${username}/following`}>{followeds.length} following</Link>
              */}
           </div>
-          <div className="col-sm-6 bg-white">
+          <div className="col-sm-6 bg-white profile-center-column">
             <Switch>
               <Route exact path="/users/:username" render={props => <PostFeed {...props} /* username={username} */  />} />
               <Route exact path="/users/:username/followers" component={UserFollows} />

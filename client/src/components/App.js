@@ -8,31 +8,47 @@ import UserFollows from "../pages/UserFollows";
 import PostDetails from "../pages/PostDetails";
 import EditProfile from "../pages/EditProfile";
 import Header from "./Header";
-// import '../styles/App.css';
+import '../styles/App.css';
 import AccountProvider, { AccountContext, AccountConsumer } from '../providers/AccountProvider';
 
 class App extends Component {
+  state = {
+    id: '',
+    username: '',
+    email: '',
+    updateAccount: updatedAccount => this.updateAccount(updatedAccount),
+  }
+
+  updateAccount = updatedAccount => {
+    this.setState(prevState => ({
+      ...prevState,
+      ...updatedAccount
+    }))
+  }
+
   render() {
     console.log('Account Context: ', AccountContext);
     console.log('Account Provider: ', AccountProvider);
     console.log('Account Consumer: ', AccountConsumer);
 
     return (
-      <AccountProvider>
+      <AccountProvider value={this.state}>
         <Router>
           <div className="bg-light">
             <Header />
-            <AccountConsumer>
-              {(value) => (
+            {/* <AccountConsumer>
+              {(value) => ( */}
                 <Switch>
                   {/* <Route exact path="/" component={Home} /> */}
                   <Route exact path="/" render={() => (
-                    value.username ? 
-                      <Home/> 
+                    this.state.username ? 
+                      // <Home/> 
+                      <Redirect to='/home' />
                     : 
                       // <Redirect to='/login'/>
                       <Login/>
                   )} />
+                  <Route exact path="/home" component={Home} />
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/users" component={Users} />
                   <Route path="/users/:username" component={UserProfile} />
@@ -42,8 +58,8 @@ class App extends Component {
                   <Route exact path="/posts/:PostId" component={PostDetails} />
                   <Route exact path="/editprofile" component={EditProfile} />
                 </Switch>
-              ) }
-            </AccountConsumer>
+              {/* ) }
+            </AccountConsumer> */}
           </div>
         </Router>
       </AccountProvider>

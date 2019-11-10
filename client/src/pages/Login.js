@@ -54,12 +54,12 @@ export default class Login extends Component {
       <AccountConsumer>
         {({updateAccount}) => (
           <div className="container">
-            Login
+            {/* Login */}
             <form onChange={this.handleInputChange} onSubmit={(event) => this.handleFormSubmit(updateAccount, event)}>
               <Input value={this.state.email} name="email" type="email" id="email" label="Email address" placeholder="name@example.com" />
               {!this.state.login && <Input value={this.state.username} name="username" type="text" id="username" label="Username" placeholder="username" />}
               <Input value={this.state.password} name="password" type="password" id="password" label="Password" />
-              <button type="submit" class="btn btn-primary mb-2">{this.state.login ? "Login" : "Create Account"}</button>
+              <button type="submit" class="btn btn-primary mb-2">{this.state.login ? "Sign in" : "Create Account"}</button>
             </form>
             <button className="btn btn-secondary" onClick={(event) => {this.setState({login: !this.state.login})}}>{this.state.login ? "Need to create an account?" : "Already have an account?"}</button> <br/>
           </div>

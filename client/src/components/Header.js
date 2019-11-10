@@ -7,6 +7,7 @@ import API from '../utils/API';
 
 const Header = (props) => {
   const accountInfo = useContext(AccountContext);
+  console.log('In Header AccountInfo', accountInfo);
   const { history } = props;
 
   useEffect( () => {
@@ -28,12 +29,18 @@ const Header = (props) => {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav">
-          <NavLink exact to="/" className="nav-item nav-link">Home</NavLink>
-          <NavLink exact to="/users" className="nav-item nav-link">Users</NavLink>
-          {/* Link to take user to their own profile page */}
-          {accountInfo.username && <NavLink exact to={`/users/${accountInfo.username}`} className="nav-item nav-link">Profile</NavLink>}
-        </div>
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <NavLink exact to="/home" className="nav-link">Home</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink exact to="/users" className="nav-link">Users</NavLink>
+          </li>
+          <li className="nav-item">
+            {/* Link to take user to their own profile page */}
+            {accountInfo.username && <NavLink exact to={`/users/${accountInfo.username}`} className="nav-link">Profile</NavLink>}
+          </li>
+        </ul>
       </div>
       {/* <div>
         {authToken ? (
@@ -52,17 +59,18 @@ const Header = (props) => {
           </Link>
         )}
       </div> */}
+      {/* Log in/out button and user info */}
       <div className="mr-2">
         {accountInfo.username || "Please log in"}
       </div>
       {accountInfo.username ? 
-        <button onClick={() => {
+        <button className="btn btn-secondary" onClick={() => {
           API.logout().then(res => {
             console.log("Logged out.")
             history.push('/');
           })}
-        }>Logout</button> :
-        <Link to="/login">Login</Link>
+        }>Sign out</button> :
+        <Link className="btn btn-secondary" to="/login">Sign in</Link>
       }
     </nav>
   )

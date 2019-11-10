@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 var router = express.Router();
 
+// GET /api/posts
 router.get('/', function(req, res) {
   // res.send("Post api");
 
@@ -22,7 +23,7 @@ router.get('/', function(req, res) {
     include: [
       {
         model: db.User,
-        attributes: ['id', 'username', 'email'],
+        attributes: ['id', 'username', 'email', 'name', 'picture'],
         where: { 
           ...searchParams
         },
@@ -93,7 +94,7 @@ router.get('/homefeed', function(req, res) {
       order: [['createdAt', 'DESC']],
       // Include the author information
       include: [
-        {association: 'User', attributes: ['id', 'username', 'email']},
+        {association: 'User', attributes: ['id', 'username', 'email', 'name', 'picture']},
         {association: 'Comments', /* attributes: ['id', 'content'] */},
       ]
     }).then(dbPosts => {

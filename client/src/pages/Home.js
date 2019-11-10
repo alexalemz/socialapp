@@ -10,6 +10,8 @@ export default class Home extends Component {
     username: '',
     followers: [],
     followeds: [],
+    name: '',
+    pictureUrl: '',
     // isFollowing: undefined,
     // isCurrentUser: undefined,
   }
@@ -17,17 +19,18 @@ export default class Home extends Component {
   componentDidMount() {
     API.getUserProfile().then(res => {
       console.log('Home page', res.data)
-      const { username, Followers: followers, Followeds: followeds } = res.data;
+      const { username, Followers: followers, Followeds: followeds, name, picture } = res.data;
+      let pictureUrl = picture ? JSON.parse(picture).url : null;
 
       this.setState({
-        username, followers, followeds
+        username, followers, followeds, name, pictureUrl,
       })
     })
 
   }
 
   render() {
-    const { username, followers, followeds } = this.state;
+    const { username, followers, followeds, name, pictureUrl } = this.state;
 
     return (
       <div className="container">
@@ -37,6 +40,7 @@ export default class Home extends Component {
             <div className="card">
               <div className="card-body">
                 <div className="card-title">
+                  <img src={pictureUrl} style={{width: 100, height: 100, borderRadius: '10%'}} />
                   @{username}
                 </div>
                 <div className="row">
@@ -54,7 +58,7 @@ export default class Home extends Component {
               </div>
             </div>
           </div>
-          <div className="col-sm-6 bg-white">
+          <div className="col-sm-6 bg-white home-center-column">
             <CreatePost />
             <HomeFeed />
           </div>

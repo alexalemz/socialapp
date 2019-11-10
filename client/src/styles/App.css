@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -21,13 +21,61 @@
 
 .App-link {
   color: #61dafb;
+} */
+
+.home-center-column, .profile-center-column {
+  border: 1px solid #d6d6d6;
+  padding-top: 20px;
+  border-radius: 3px;
 }
 
-@keyframes App-logo-spin {
+.post-container {
+  display: flex;
+}
+.post-user-img-container {
+}
+.post-user-img {
+  width: 60px;
+  height: 60px;
+  margin: 10px 10px;
+  border-radius: 50%;
+}
+.post-content {
+  padding-left: 5px;
+}
+
+.user-card {
+  text-align: left;
+}
+.user-card-col1 {
+  display: inline-block;
+}
+img.user-card-img {
+  width: 75px;
+  height: 75px;
+  margin: 10px 10px;
+  /* margin-right: 20px; */
+  border: none;
+  border-radius: 50%;
+}
+.user-card-col2 {
+  display: block;
+}
+.user-card p {
+  margin: 0;
+  padding: 0;
+  /* line-height: 1rem; */
+  /* color: red; */
+}
+.user-card .user-username a{
+  color: grey;
+}
+
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */

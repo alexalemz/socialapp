@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import UserCard from '../components/UserCard';
 import API from '../utils/API';
 
 export default class Users extends Component {
@@ -84,7 +85,8 @@ export default class Users extends Component {
           <div className='col-12'>
             {users.length && 
               users.map(user => (
-                <p><Link to={`/users/${user.username}`}>@{user.username}</Link></p>
+                <UserCard user={user} />
+                // <p><Link to={`/users/${user.username}`}>@{user.username}</Link></p>
               )) || ' '}
           </div>
         </div>

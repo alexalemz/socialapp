@@ -96,7 +96,7 @@ export default class EditProfile extends Component {
 
     return (
       <div className="container">
-        Hello, there! <br/>
+        {/* Hello, there! <br/> */}
         You can edit the details of your profile including display name, bio, website, profile picture, etc.
 
         <form action='/api/users/profile' method='post' enctype='multipart/form-data' id='editProfileForm'
