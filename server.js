@@ -40,7 +40,10 @@ app.use(session({
   }),
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }
+  cookie: { 
+    maxAge: 2592000000 /* 60000 * 60 * 24 * 30 */,
+    secure: false 
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
