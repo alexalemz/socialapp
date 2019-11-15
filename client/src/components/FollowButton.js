@@ -31,7 +31,7 @@ export default class FollowButton extends Component {
       let btnText = hover ? "Unfollow" : "Following";
   
       return (
-        <button className={btnClass} onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff} onClick={handleUnfollow}>{btnText}</button>
+        <button className={btnClass + " follow-button"} onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff} onClick={handleUnfollow}>{btnText}</button>
       )
     }
     else {

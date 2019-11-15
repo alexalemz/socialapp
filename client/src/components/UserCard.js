@@ -10,7 +10,7 @@ const  UserCard = (props) => {
   const pictureUrl = user.picture ? JSON.parse(user.picture).url : null;
 
   const style = {
-    border: '1px solid grey',
+    // border: '1px solid grey',
   }
 
   return (

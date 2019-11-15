@@ -42,7 +42,8 @@ export default class Users extends Component {
   }
 
   render() {
-    const { username, followType, followers, followeds } = this.state;
+    const { username, /* followType,  */followers, followeds } = this.state;
+    const followType = this.props.match.path.includes('following') ? 'following' : 'followers';
 
     // const users = (followType === 'followers') ? followers : followeds;
     let users = [];
@@ -67,8 +68,8 @@ export default class Users extends Component {
     // and the heading will be in bold.
     return (
       <div className='container text-center'>
-        {/* <h5>{followType === 'followers' ? `${username}'s followers` : `${username} is following`}</h5> */}
-        <h5>{username}</h5>
+        <h5>{username ? username + (followType === 'followers' ? `'s followers` : ` is following`) : ''}</h5>
+        {/* <h5>{username}</h5>
         <div className='row text-center'>
           <div className='col-6' onClick={() => {
             // this.setState({followType: 'followers'});
@@ -80,7 +81,7 @@ export default class Users extends Component {
           }}>
             <a href={`/users/${username}/following`}><span style={followingHeading}>{followeds.length} following</span></a>
           </div>
-        </div>
+        </div> */}
         <div className='row'>
           <div className='col-12'>
             {users.length && 

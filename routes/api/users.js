@@ -1,4 +1,5 @@
 var db = require('../../models');
+var sequelize = require('sequelize');
 var express = require('express');
 var router = express.Router();
 
@@ -41,13 +42,13 @@ router.get('/profile', function(req, res) {
 
   db.User.findOne({
     where: { username },
-    attributes: ['username', 'email', 'name', 'picture', 'bio'], // only return what we need
+    attributes: ['id', 'username', 'email', 'name', 'picture', 'bio'], // only return what we need
     // include: [{ model: db.User, as: 'Followed' }]
     // include: [{association: 'Followed',  attributes: ['id', 'username']}]
     // include: [{ model: db.User, through: 'Follows' }]
     include: [
       {association: 'Followers', attributes: ['username', 'name', 'picture', 'bio']}, 
-      {association: 'Followeds', attributes: ['username', 'name', 'picture', 'bio']}
+      {association: 'Followeds', attributes: ['username', 'name', 'picture', 'bio']},
     ]
   }).then(dbUser => {
     console.log('dbUser', dbUser.get({plain: true}))
@@ -66,9 +67,13 @@ router.get('/profile', function(req, res) {
 
     // res.json(dbUser2)
 
-    // Create a new object, with the properties of dbUser plus isCurrentUser and isFollowing
-    let dbUser3 = {...dbUser.get({plain: true}), isCurrentUser, isFollowing};
-    res.json(dbUser3)
+    // Look up the number of posts the user has made
+    db.Post.count({where: {UserId: dbUser.id}}).then(postCount => {
+      // Create a new object, with the properties of dbUser plus isCurrentUser and isFollowing
+      let dbUser3 = {...dbUser.get({plain: true}), isCurrentUser, isFollowing, postCount};
+      res.json(dbUser3)
+    })
+
   }).catch(err => res.send(err))
 })
 

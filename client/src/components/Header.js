@@ -22,6 +22,13 @@ const Header = (props) => {
     });
   })
 
+  const logOut = () => {
+    API.logout().then(res => {
+      console.log("Logged out.")
+      history.push('/');
+    })
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">Social App</Link>
@@ -60,19 +67,24 @@ const Header = (props) => {
         )}
       </div> */}
       {/* Log in/out button and user info */}
+      <SignInButton accountInfo={accountInfo} logOut={logOut} />
+    </nav>
+  )
+}
+
+const SignInButton = (props) => {
+  const { accountInfo, logOut } = props;
+
+  return (
+    <>
       <div className="mr-2">
         {accountInfo.username || "Please log in"}
       </div>
       {accountInfo.username ? 
-        <button className="btn btn-secondary" onClick={() => {
-          API.logout().then(res => {
-            console.log("Logged out.")
-            history.push('/');
-          })}
-        }>Sign out</button> :
+        <button className="btn btn-secondary" onClick={logOut}>Sign out</button> :
         <Link className="btn btn-secondary" to="/login">Sign in</Link>
       }
-    </nav>
+    </>
   )
 }
 

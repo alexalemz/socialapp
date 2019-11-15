@@ -37,11 +37,11 @@ class Post extends Component {
     console.log("In Post.js User:", User)
     const pictureUrl = User.picture ? JSON.parse(User.picture).url : null;
     return (
-      <div className="post-container" style={{
-        border: 'solid black 1px',
+      <div className="post-container bg-white" style={{
+        /* border: 'solid black 1px',
         borderRadius: '15px',
         padding: '10px',
-        margin: '10px 0',
+        margin: '10px 0', */
       }}>
         <div className="post-user-img-container">
           <img className="post-user-img" src={pictureUrl} />

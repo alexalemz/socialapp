@@ -16,6 +16,7 @@ export default class Home extends Component {
     isCurrentUser: undefined,
     bio: undefined,
     picture: undefined,
+    postCount: undefined,
   }
   
   componentDidMount() {
@@ -35,7 +36,7 @@ export default class Home extends Component {
 
     API.getUserProfile({username}).then(res => {
       console.log('UserProfile', res.data)
-      const { username, name, email, Followers, Followeds, isFollowing, isCurrentUser, bio } = res.data;
+      const { username, name, email, Followers, Followeds, isFollowing, isCurrentUser, bio, postCount } = res.data;
       let picture = res.data.picture && JSON.parse(res.data.picture).url;
       
       this.setState({
@@ -47,6 +48,7 @@ export default class Home extends Component {
         isCurrentUser,
         bio,
         picture,
+        postCount,
       })
     })
   }
@@ -70,7 +72,7 @@ export default class Home extends Component {
   }
   
   render() {
-    const { username, name, email, followers, followeds, isFollowing, isCurrentUser, picture, bio } = this.state;
+    const { username, name, email, followers, followeds, isFollowing, isCurrentUser, picture, bio, postCount } = this.state;
     const userPath = `/users/${username}`;
       
     return (
@@ -83,21 +85,21 @@ export default class Home extends Component {
         <div className="row mb-3 bg-white shadow-sm">
           {/* Posts/Following/Followers/Likes tabs + FollowButton */}
           <div className="col-sm-6 offset-sm-3">
-            <ul className="nav nav-tabs">
+            <ul className="nav nav-tabs text-center">
               <li className="nav-item">
-                <NavLink exact to={`${userPath}`} className="nav-link">Posts</NavLink>
+                <NavLink exact to={`${userPath}`} className="nav-link">Posts<br/>{postCount}</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink exact to={`${userPath}/followers`} className="nav-link">{followers.length} followers</NavLink>
+                <NavLink exact to={`${userPath}/followers`} className="nav-link">Followers<br/>{followers.length}</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink exact to={`${userPath}/following`} className="nav-link">{followeds.length} following</NavLink>
+                <NavLink exact to={`${userPath}/following`} className="nav-link">Following<br/>{followeds.length}</NavLink>
               </li>
             </ul>
           </div>
 
           {/* If a user is on their own profile page, have a link to Edit Profile */}
-          {isCurrentUser && <Link className="btn btn-outline-primary" to="/editprofile">Edit profile</Link>}
+          {isCurrentUser && <Link className="btn btn-outline-primary edit-profile-button" to="/editprofile">Edit profile</Link>}
           {/* <FollowButton isFollowing={isFollowing} isCurrentUser={isCurrentUser} /> */}
           <FollowButton {...{isFollowing, isCurrentUser}} handleFollow={this.handleFollow} handleUnfollow={this.handleUnfollow} />
         </div>
