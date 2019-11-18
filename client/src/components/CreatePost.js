@@ -49,7 +49,7 @@ class CreatePost extends Component {
               width: "100%",
               resize: "none",
               border: "1px solid #d6d6d6",
-              padding: "5px",
+              padding: "5px 10px",
               // margin: "10px",
             }}
             maxLength="280"

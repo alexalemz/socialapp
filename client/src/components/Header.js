@@ -47,6 +47,9 @@ const Header = (props) => {
             {/* Link to take user to their own profile page */}
             {accountInfo.username && <NavLink exact to={`/users/${accountInfo.username}`} className="nav-link">Profile</NavLink>}
           </li>
+          <li>
+            <SignInButton accountInfo={accountInfo} logOut={logOut} className="d-inline d-md-none" />
+          </li>
         </ul>
       </div>
       {/* <div>
@@ -67,7 +70,7 @@ const Header = (props) => {
         )}
       </div> */}
       {/* Log in/out button and user info */}
-      <SignInButton accountInfo={accountInfo} logOut={logOut} />
+      <SignInButton accountInfo={accountInfo} logOut={logOut} className="d-none d-md-inline" />
     </nav>
   )
 }
@@ -76,15 +79,15 @@ const SignInButton = (props) => {
   const { accountInfo, logOut } = props;
 
   return (
-    <>
-      <div className="mr-2">
+    <span className={props.className} style={{margin: 0, padding: 0}}>
+      <div className="mr-2 d-inline">
         {accountInfo.username || "Please log in"}
       </div>
       {accountInfo.username ? 
         <button className="btn btn-secondary" onClick={logOut}>Sign out</button> :
         <Link className="btn btn-secondary" to="/login">Sign in</Link>
       }
-    </>
+    </span>
   )
 }
 

@@ -84,16 +84,16 @@ export default class Home extends Component {
         </div>
         <div className="row mb-3 bg-white shadow-sm">
           {/* Posts/Following/Followers/Likes tabs + FollowButton */}
-          <div className="col-sm-6 offset-sm-3">
-            <ul className="nav nav-tabs text-center">
+          <div className="col-sm-5 offset-sm-3">
+            <ul className="nav nav-tabs text-center d-none d-md-flex">
               <li className="nav-item">
-                <NavLink exact to={`${userPath}`} className="nav-link">Posts<br/>{postCount}</NavLink>
+                <NavLink exact to={`${userPath}`} className="nav-link"><span className="profile-tab-label">Posts</span><br/><span className="profile-tab-number">{postCount}</span></NavLink>
               </li>
               <li className="nav-item">
-                <NavLink exact to={`${userPath}/followers`} className="nav-link">Followers<br/>{followers.length}</NavLink>
+                <NavLink exact to={`${userPath}/followers`} className="nav-link"><span className="profile-tab-label">Followers</span><br/><span className="profile-tab-number">{followers.length}</span></NavLink>
               </li>
               <li className="nav-item">
-                <NavLink exact to={`${userPath}/following`} className="nav-link">Following<br/>{followeds.length}</NavLink>
+                <NavLink exact to={`${userPath}/following`} className="nav-link"><span className="profile-tab-label">Following</span><br/><span className="profile-tab-number">{followeds.length}</span></NavLink>
               </li>
             </ul>
           </div>
@@ -106,14 +106,20 @@ export default class Home extends Component {
         <div className="row">
           <div className="col-sm-3">
             {/* Profile info (including bio, joined date, website...) */}
-            <h4>{name}</h4>
-            <p>{`@${username}`}</p>
-            {picture && <img style={{maxWidth: '75%', maxHeight: '75%', borderRadius: '10%'}} src={picture} />}
-            {bio && <p className='bio'>{`${bio}`}</p> }
-            {/* 
-              <Link to={`/users/${username}/followers`}>{followers.length} followers</Link> <br/>
-              <Link to={`/users/${username}/following`}>{followeds.length} following</Link>
-             */}
+            <div className="profile-info-container">
+              {picture && 
+                <img 
+                  // style={{maxWidth: '75%', maxHeight: '75%', borderRadius: '10%'}} 
+                  className="profile-picture"
+                  src={picture} />}
+              <h4 className="profile-name">{name}</h4>
+              <p className="profile-username">{`@${username}`}</p>
+              {bio && <p className='profile-bio'>{`${bio}`}</p> }
+              {/* 
+                <Link to={`/users/${username}/followers`}>{followers.length} followers</Link> <br/>
+                <Link to={`/users/${username}/following`}>{followeds.length} following</Link>
+              */}
+            </div>
           </div>
           <div className="col-sm-6 bg-white profile-center-column">
             <Switch>

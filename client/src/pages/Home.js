@@ -56,15 +56,15 @@ export default class Home extends Component {
                 <div className="row no-gutters" style={{color: "gray", fontSize: ".8rem", fontWeight: "bold"}}>
                   <div className="col-4">
                     Posts <br/>
-                    <a href={`users/${username}`}>{postCount}</a>
+                    <a href={`users/${username}`} className="home-stats-number">{postCount}</a>
                   </div>
                   <div className="col-4">
                     Followers <br/>
-                    <a href={`users/${username}/followers`}>{followers.length}</a>
+                    <a href={`users/${username}/followers`} className="home-stats-number">{followers.length}</a>
                   </div>
                   <div className="col-4">
                     Following <br/>
-                    <a href={`users/${username}/following`}>{followeds.length}</a>
+                    <a href={`users/${username}/following`} className="home-stats-number">{followeds.length}</a>
                   </div>
                   {/* <div className="col-4">
                   </div> */}
