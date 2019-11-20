@@ -6,6 +6,7 @@ import API from '../utils/API';
 export default class Users extends Component {
   state = {
     username: '',
+    name: '',
     followType: '',
     followers: [],
     followeds: [],
@@ -29,11 +30,12 @@ export default class Users extends Component {
     console.log('FollowType and username', followType, username)
 
     API.getUserProfile({username}).then(res => {
-      const {Followers, Followeds} = res.data;
+      const {Followers, Followeds, name} = res.data;
 
       this.setState({
         // users: followType === 'followers' ? Followers : Followeds,
         username,
+        name,
         followType,
         followers: Followers,
         followeds: Followeds,
@@ -42,7 +44,7 @@ export default class Users extends Component {
   }
 
   render() {
-    const { username, /* followType,  */followers, followeds } = this.state;
+    const { username, name, /* followType,  */followers, followeds } = this.state;
     const followType = this.props.match.path.includes('following') ? 'following' : 'followers';
 
     // const users = (followType === 'followers') ? followers : followeds;
@@ -68,7 +70,12 @@ export default class Users extends Component {
     // and the heading will be in bold.
     return (
       <div className='container text-center'>
-        <h5>{username ? username + (followType === 'followers' ? `'s followers` : ` is following`) : ''}</h5>
+        {/* <h5>{username ? username + (followType === 'followers' ? `'s followers` : ` is following`) : ''}</h5> */}
+        <h5>{name ? (
+          <>
+            <strong>{name}</strong>{followType === 'followers' ? `'s followers` : ` is following`}
+          </>) : ''}
+        </h5>
         {/* <h5>{username}</h5>
         <div className='row text-center'>
           <div className='col-6' onClick={() => {

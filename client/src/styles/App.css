@@ -90,8 +90,9 @@
 @media (max-width: 768px) {
   .profile-info-container {
     margin: 0 auto;
-    width: fit-content;
-    /* width: 100%; */
+    padding: 10px 20px;
+    /* width: fit-content; */
+    width: 100%;
   }
   .profile-picture {
     width: 150px;
@@ -112,6 +113,13 @@
   color: grey;
   margin-top: -10px;
   /* margin: 0; padding: 0; */
+}
+.profile-stats-number {
+  font-weight: bold;
+  color: black;
+}
+.profile-stats-label {
+  color: gray;
 }
 
 .profile-tab-label {
