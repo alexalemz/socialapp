@@ -26,7 +26,7 @@ export default class Home extends Component {
   // Whenever the username in the url changes, we need to load the appropriate user info.
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.username !== this.props.match.params.username) {
-      console.log("Got some new props")
+      console.log("Got some new props", prevProps.match.params.username, this.props.match.params.username)
       this.loadProfile();
     }
   }
@@ -99,7 +99,7 @@ export default class Home extends Component {
           </div>
 
           {/* If a user is on their own profile page, have a link to Edit Profile */}
-          {isCurrentUser && <Link className="btn btn-outline-primary edit-profile-button" to="/editprofile">Edit profile</Link>}
+          {isCurrentUser && <Link className="btn btn-outline-secondary edit-profile-button" to="/editprofile">Edit profile</Link>}
           {/* <FollowButton isFollowing={isFollowing} isCurrentUser={isCurrentUser} /> */}
           <FollowButton {...{isFollowing, isCurrentUser}} handleFollow={this.handleFollow} handleUnfollow={this.handleUnfollow} />
         </div>
@@ -108,10 +108,15 @@ export default class Home extends Component {
             {/* Profile info (including bio, joined date, website...) */}
             <div className="profile-info-container">
               {picture && 
-                <img 
+                <div 
                   // style={{maxWidth: '75%', maxHeight: '75%', borderRadius: '10%'}} 
                   className="profile-picture"
-                  src={picture} />}
+                  style={{
+                    backgroundImage: `url("${picture}")`, 
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                  }}
+                />}
               <h4 className="profile-name">{name}</h4>
               <p className="profile-username">{`@${username}`}</p>
               {bio && <p className='profile-bio'>{`${bio}`}</p> }

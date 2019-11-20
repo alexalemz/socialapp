@@ -36,7 +36,7 @@ export default class FollowButton extends Component {
     }
     else {
       return (
-        <button className="btn btn-outline-primary" onClick={handleFollow}>Follow</button>
+        <button className="btn btn-outline-primary follow-button" onClick={handleFollow}>Follow</button>
       )
     }
 

@@ -35,6 +35,7 @@
   font-size: 1.2rem;
 }
 
+/* Posts */
 .post-container {
   display: flex;
   border: solid #d6d6d6 /* black */ 1px;
@@ -79,6 +80,8 @@
   .profile-picture {
     margin-top: -60px;
     margin-bottom: 10px;
+    width: 200px;
+    height: 200px;
     max-width: 200px;
     max-height: 200px;
   }
@@ -91,8 +94,8 @@
     /* width: 100%; */
   }
   .profile-picture {
-    /* width: 200px;
-    height: 200px; */
+    width: 150px;
+    height: 150px;
     max-width: 150px;
     max-height: 150px;
     margin: 10px;
@@ -124,8 +127,9 @@
   color: #007bff; /* The default bootstrap link color */
 }
 
-
+/* Users page */
 .user-card {
+  background: white;
   text-align: left;
   border: 1px solid #d6d6d6;
   border-radius: 3px;

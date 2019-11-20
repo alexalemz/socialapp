@@ -43,7 +43,15 @@ export default class Home extends Component {
                 <div className="card-title">
                   <div className="row">
                     <div className="col-4">
-                      <img src={pictureUrl} style={{width: 100, height: 100, borderRadius: '10%'}} />
+                      <div
+                        style={{
+                          width: 100, height: 100, 
+                          borderRadius: '10%',
+                          backgroundImage: `url("${pictureUrl}")`,
+                          backgroundPosition: "center",
+                          backgroundSize: "cover",
+                        }} 
+                      />
                     </div>
                     <div className="col-7">
                       {/* Align the text to the bottom of the div */}

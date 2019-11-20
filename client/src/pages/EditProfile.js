@@ -113,7 +113,7 @@ export default class EditProfile extends Component {
           <input type='text' name='name' id='name' value={this.state.name} /> <br/>
 
           <label for='bio'>Bio</label> <br/>
-          <textarea name='bio' id='bio' value={this.state.bio} /> <br/>
+          <textarea name='bio' id='bio' value={this.state.bio} style={{resize: "none"}} /> <br/>
 
           {/* <label for='website'>Website</label> <br/> */}
           {/* <input type='text' name='website' id='website' value={this.state.website} /> <br/> */}

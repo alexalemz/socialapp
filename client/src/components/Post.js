@@ -34,7 +34,7 @@ class Post extends Component {
 
   render() {
     const { post, post: {User, content, Comments} } = this.props;
-    console.log("In Post.js User:", User)
+    // console.log("In Post.js User:", User)
     const pictureUrl = User.picture ? JSON.parse(User.picture).url : null;
     return (
       <div className="post-container bg-white" style={{

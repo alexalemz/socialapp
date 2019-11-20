@@ -22,7 +22,7 @@ class HomeFeed extends Component {
         <h5>Feed</h5>
         {this.state.posts.length && 
           this.state.posts.map(post => {
-            return (<Post post={post} />)
+            return (<Post key={post.id} post={post} />)
         }) || <p>Fetching posts...</p>}
       </div>
     )
