@@ -7,7 +7,7 @@ import { AccountContext, AccountConsumer } from '../providers/AccountProvider';
   So what we need here is a way to look up the current user's info
   (display name, bio, website, profile picture).
   Then we display those things in the forms, which can be edited. 
-  (For the picture, we'll display the current picture, but have a button to upload a newe one.)
+  (For the picture, we'll display the current picture, but have a button to upload a new one.)
   There will be a save button to save the changes.
 */
 
@@ -76,6 +76,11 @@ export default class EditProfile extends Component {
 
     // This is the easy way to construct FormData
     let formData = new FormData(document.getElementById('editProfileForm'));
+    // Trim the values of name, bio, etc.
+    const {name, bio} = this.state;
+    formData.set('name', name.trim());
+    formData.set('bio', bio.trim());
+
     // This is the other way...
     // let formData = new FormData();
     // formData.append('name', this.state.name);

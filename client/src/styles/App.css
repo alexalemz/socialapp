@@ -55,6 +55,18 @@
   padding-left: 5px;
 }
 
+/* This should be a class, but using React-Bootstrap, it makes it an id. */
+#dropdown-basic-button {
+  width: 30px; height: 30px;
+  color: gray;
+  margin: -10px 10px 0;
+  padding: 5px;
+  border-radius: 50%;
+}
+#dropdown-basic-button:hover {
+  background: lightblue;
+}
+
 .follow-button, .edit-profile-button {
   height: 40px;
   width: 110px;

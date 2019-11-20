@@ -47,6 +47,14 @@ router.get('/', function(req, res) {
     // })
     // res.json(dbPosts2);
 
+    // Add property fromCurrentUser, which indicates if the post is from the logged in user.
+    dbPosts = dbPosts.map(post => {
+      return {
+        ...post.get({plain: true}),
+        fromCurrentUser: post.User.id === req.user.id,
+      } 
+    })
+
     res.json(dbPosts);
   })
 })
@@ -98,6 +106,14 @@ router.get('/homefeed', function(req, res) {
         {association: 'Comments', /* attributes: ['id', 'content'] */},
       ]
     }).then(dbPosts => {
+      // Add property fromCurrentUser, which indicates if the post is from the logged in user.
+      dbPosts = dbPosts.map(post => {
+        return {
+          ...post.get({plain: true}),
+          fromCurrentUser: post.User.id === req.user.id,
+        } 
+      })
+
       res.json(dbPosts)
     })
 
@@ -119,6 +135,24 @@ router.get('/:PostId', function(req, res) {
     ]
   }).then(dbPost => {
     res.json(dbPost)
+  })
+})
+
+// Delete a post with a given id, as long as it belongs to the logged-in user
+router.delete('/:PostId', function(req, res) {
+  const { PostId } = req.params;
+
+  db.Post.destroy({
+    where: {
+      id: PostId,
+      UserId: req.user.id,
+    }
+  }).then(dbPost => {
+    console.log(`Post with id ${PostId} was deleted.`)
+    res.json(dbPost);
+  }).catch(err => {
+    console.log(err);
+    res.json(err);
   })
 })
 

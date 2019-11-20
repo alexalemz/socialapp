@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
+import API from '../utils/API'
 const moment = require('moment')
 
 class Post extends Component {
@@ -32,6 +35,14 @@ class Post extends Component {
     clearInterval(this.timerID);
   }
 
+  handleDelete = () => {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      API.deletePost(this.props.post.id).then(dbPost => {
+        window.location.reload();
+      });
+    }
+  }
+
   render() {
     const { post, post: {User, content, Comments} } = this.props;
     // console.log("In Post.js User:", User)
@@ -54,6 +65,15 @@ class Post extends Component {
           <span style={{fontSize: "14px", color: "grey", cursor: "pointer"}} onClick={() => window.location.assign(`/posts/${post.id}`)}> <i class="far fa-comment"></i>  {Comments.length || ''}</span>
           {/* <span style={{fontSize: "14px", color: "grey"}}> <i class="far fa-heart"></i> </span> */}
         </div>
+        {post.fromCurrentUser ? 
+          <DropdownButton variant="white" title="" alignRight id="dropdown-basic-button">
+            <Dropdown.Item as="button" style={{color: "gray"}} onClick={this.handleDelete}>Delete post</Dropdown.Item>
+            {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+          </DropdownButton>
+          : ''
+        }
       </div>
     )
   }

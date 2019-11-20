@@ -34,6 +34,9 @@ export default {
   getPostDetails: function(postId, data) {
     return axios.get(`/api/posts/${postId}`, {params: data});
   },
+  deletePost: function(postId) {
+    return axios.delete(`/api/posts/${postId}`);
+  },
   getHomeFeed: function(data) {
     return axios.get('/api/posts/homefeed', {params: data});
   },

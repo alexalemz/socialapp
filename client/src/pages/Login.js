@@ -23,7 +23,10 @@ export default class Login extends Component {
     console.log("updateAccount", updateAccount)
 
     // Do a post to '/api/login/'
-    const { email, username, password } = this.state;
+    let { email, username, password } = this.state;
+    // Trim the email and username
+    email = email.trim();
+    username = username.trim();
 
     if (this.state.login) {
       API.login({email, password}).then(res => {
