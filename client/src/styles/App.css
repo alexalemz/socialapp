@@ -73,10 +73,10 @@
     margin: 5px;
   }
   .post-content {
-    font-size: .8rem;
+    /* font-size: .8rem; */
   }
   .post-timestamp, .post-comments {
-    font-size: .75rem;
+    /* font-size: .75rem; */
   }
 }
 
