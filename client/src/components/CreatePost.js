@@ -13,7 +13,7 @@ class CreatePost extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    API.createPost({content: this.state.content}).then(res => {
+    API.createPost({content: this.state.content.trim()}).then(res => {
       this.setState({content: ''})
 
       window.location.reload();

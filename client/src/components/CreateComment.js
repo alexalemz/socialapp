@@ -9,7 +9,7 @@ class CreateComment extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    API.createComment({PostId: this.props.PostId, content: this.state.content}).then(res => {
+    API.createComment({PostId: this.props.PostId, content: this.state.content.trim()}).then(res => {
       this.setState({content: ''})
 
       window.location.reload();
