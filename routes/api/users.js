@@ -167,7 +167,22 @@ router.post('/follow', function(req, res) {
     // which we will call 'follower', then do followed.addFollower(follower) to make the association.
     const followed = dbUser;
     db.User.findOne({where: {id: req.user.id}}).then(follower => {
-      followed.addFollower(follower).then(data => res.json(data)).catch(err => res.send(err))
+      followed.addFollower(follower).then(data => {
+        res.json(data)
+        // Create notification if person wants to be notified.
+        db.Notification_Preference.find({ 
+          where: { notification_type: 'new_follower', UserId: followed.id }
+        }).then(np => {
+          console.log("\n\nValue of np is", np)
+          if (np) console.log("\nValue of np.enabled is", np.enabled)
+          if (np && np.enabled === true) {
+            db.Notification.create({
+              UserId: followed.id,
+              description: `${follower.name} has followed you!`,
+            })
+          }
+        })
+      }).catch(err => res.send(err))
     })
     
   }).catch(err => res.send(err))

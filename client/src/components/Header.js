@@ -47,6 +47,9 @@ const Header = (props) => {
             {/* Link to take user to their own profile page */}
             {accountInfo.username && <NavLink exact to={`/users/${accountInfo.username}`} className="nav-link">Profile</NavLink>}
           </li>
+          <li className="nav-item">
+            <NavLink exact to="/settings" className="nav-link">Settings</NavLink>
+          </li>
           <li>
             <SignInButton accountInfo={accountInfo} logOut={logOut} className="d-inline d-md-none" />
           </li>

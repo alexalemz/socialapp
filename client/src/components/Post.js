@@ -23,7 +23,7 @@ class Post extends Component {
     const yearDiff = moment().diff(momentCreated, 'year');
     let timestamp = momentCreated.fromNow(0);;
     if (minuteDiff < 1)
-      timestamp = timestamp;
+      timestamp = moment().diff(momentCreated, 'second') + 's';
     else if (hourDiff < 1)
       timestamp = `${minuteDiff}m`;
     else if (hourDiff < 21)
@@ -77,8 +77,8 @@ class Post extends Component {
           <span><Link to={`/users/${User.username}`}>@{User.username}</Link></span> {/* <br/> */}
           <span className="post-timestamp">&middot; {this.state.timestamp}</span> <br/>
           <span /* key={id} */>{content}</span> <br/>
-          <span className="post-comments" onClick={() => window.location.assign(`/posts/${post.id}`)}> <i class="far fa-comment"></i>  {Comments.length || ''}</span>
-          {/* <span style={{fontSize: "14px", color: "grey"}}> <i class="far fa-heart"></i> </span> */}
+          <span className="post-comments" onClick={() => window.location.assign(`/posts/${post.id}`)}> <i className="far fa-comment"></i>  {Comments.length || ''}</span>
+          {/* <span style={{fontSize: "14px", color: "grey"}}> <i className="far fa-heart"></i> </span> */}
         </div>
         {/* Dropdown options (for now, only on user's own posts) */}
         {post.fromCurrentUser ? 

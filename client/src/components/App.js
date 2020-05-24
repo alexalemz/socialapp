@@ -7,6 +7,7 @@ import UserProfile from "../pages/UserProfile";
 import UserFollows from "../pages/UserFollows";
 import PostDetails from "../pages/PostDetails";
 import EditProfile from "../pages/EditProfile";
+import Settings from "../pages/Settings";
 import Header from "./Header";
 import '../styles/App.css';
 import AccountProvider, { AccountContext, AccountConsumer } from '../providers/AccountProvider';
@@ -56,6 +57,7 @@ class App extends Component {
                   {/* <Route exact path="/users/:username/following" component={UserFollows} /> */}
                   {/* <Route exact path="/users/:username/follows" component={UserFollows} /> */}
                   <Route exact path="/posts/:PostId" component={PostDetails} />
+                  <Route exact path="/settings" component={Settings} />
                   <Route exact path="/editprofile" component={EditProfile} />
                 </Switch>
               {/* ) }

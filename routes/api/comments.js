@@ -19,6 +19,7 @@ router.post('/', function(req, res) {
     PostId,
     content
   }).then(dbComment => {
+    console.log("\n\nIn comment post route. Create resolves.\n\n")
     res.json(dbComment)
   }).catch(err => {
     res.json(err)
