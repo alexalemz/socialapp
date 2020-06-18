@@ -44,8 +44,8 @@ export default class Home extends Component {
       this.setState({
         username,
         name,
-        followers: Followers,
-        followeds: Followeds,
+        followers: Followers || [],
+        followeds: Followeds || [],
         isFollowing,
         isCurrentUser,
         bio,

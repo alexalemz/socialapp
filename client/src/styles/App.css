@@ -187,7 +187,7 @@
 .user-card-col1 {
   display: inline-block;
 }
-img.user-card-img {
+.user-card-img {
   width: 75px;
   height: 75px;
   margin: 10px 10px;
@@ -196,7 +196,10 @@ img.user-card-img {
   border-radius: 50%;
 }
 .user-card-col2 {
-  display: block;
+  /* display: block; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .user-card p {
   margin: 0;

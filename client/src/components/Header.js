@@ -47,9 +47,10 @@ const Header = (props) => {
             {/* Link to take user to their own profile page */}
             {accountInfo.username && <NavLink exact to={`/users/${accountInfo.username}`} className="nav-link">Profile</NavLink>}
           </li>
-          <li className="nav-item">
-            <NavLink exact to="/settings" className="nav-link">Settings</NavLink>
-          </li>
+          {accountInfo.username && <li className="nav-item">
+            {/* Hiding the Settings link for now until it's fully implemented. */}
+            {/* <NavLink exact to="/settings" className="nav-link">Settings</NavLink> */}
+          </li>}
           <li>
             <SignInButton accountInfo={accountInfo} logOut={logOut} className="d-inline d-md-none" />
           </li>
@@ -84,7 +85,7 @@ const SignInButton = (props) => {
   return (
     <span className={props.className} style={{margin: 0, padding: 0}}>
       <div className="mr-2 d-inline">
-        {accountInfo.username || "Please log in"}
+        {accountInfo.username ? accountInfo.username : "Please sign in"}
       </div>
       {accountInfo.username ? 
         <button className="btn btn-secondary" onClick={logOut}>Sign out</button> :

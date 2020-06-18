@@ -54,11 +54,11 @@ router.get('/profile', function(req, res) {
     console.log('dbUser', dbUser.get({plain: true}))
     // Add an attribute of whether the current user is following this user.
     // Check if req.user.username is in db.User.Followers
-    const isFollowing = dbUser.Followers.some(follower => {
+    const isFollowing = req.user ? dbUser.Followers.some(follower => {
       return follower.username === req.user.username
-    })
+    }) : undefined;
 
-    const isCurrentUser = dbUser.username === req.user.username;
+    const isCurrentUser = req.user ? dbUser.username === req.user.username : undefined;
 
     // const { username, email, Followers, Followeds } = dbUser;
     // let dbUser2 = {

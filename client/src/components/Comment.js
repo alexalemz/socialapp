@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import API from '../utils/API'
 const moment = require('moment')
 
 export default class Comment extends Component {
@@ -32,6 +33,14 @@ export default class Comment extends Component {
     clearInterval(this.timerID);
   }
 
+  handleCommentDelete = (commentId) => {
+    if (window.confirm("Are you sure you want to delete this comment?")) {
+      API.deleteComment(commentId).then(dbComment => {
+        window.location.reload();
+      });
+    }
+  }
+
   render() {
     const { comment, comment: {User, content, Comments} } = this.props;
     return (
@@ -46,6 +55,14 @@ export default class Comment extends Component {
         <span /* key={id} */>{content}</span> <br/>
         {/* <span style={{fontSize: "14px", color: "grey"}}> <i class="far fa-comment"></i>  {Comments.length || ''}</span> */}
         {/* <span style={{fontSize: "14px", color: "grey"}}> <i class="far fa-heart"></i> </span> */}
+        {comment.fromCurrentUser ? (
+          <span 
+            onClick={(event) => this.handleCommentDelete(comment.id)}
+            style={{cursor: 'pointer', color: 'gray', fontSize: '.8rem'}}
+          >
+              Delete
+          </span>
+        ) : ''}
       </div>
     )
   }

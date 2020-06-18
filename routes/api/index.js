@@ -36,10 +36,13 @@ router.post("/login", passport.authenticate("local"), function(req, res) {
 router.post("/register", function(req, res) {
   console.log(req.body);
   const { email, username, password } = req.body;
+  // The default picture is the silhouette (which is already in Cloudinary)
+  const picture = `{"id":"ysotg2rmmqayehlg3bzq","url":"http://res.cloudinary.com/dewsvrayk/image/upload/v1573259071/ysotg2rmmqayehlg3bzq.png"}`;
   db.User.create({
     email,
     username,
     password,
+    picture
   }).then(function() {
     res.redirect(307, "/api/login");
   }).catch(function(err) {

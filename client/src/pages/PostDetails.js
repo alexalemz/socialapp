@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import API from '../utils/API'
 import Comment from '../components/Comment'
 import CreateComment from '../components/CreateComment'
+import { AccountConsumer } from '../providers/AccountProvider';
 
 const moment = require('moment')
 
@@ -32,30 +33,41 @@ export default class PostDetails extends Component {
 
   render() {
     const { id, content, createdAt, User, Comments } = this.state;
+    let contextValue = this.context;
+    let username = contextValue.username;
 
     return (
-      <div className="container">
-        <div className="">
-          @{User.username}
-        </div>
-        <div className="">
-          <h4>{content}</h4>
-        </div>
-        <div className="">
-          <span style={{fontSize: '14px', color: 'grey'}}>{moment(createdAt).format('h:mm A - MMM D YYYY')}</span> 
-          <br/>
-          <span style={{fontSize: "14px", color: "grey"}}> <i class="far fa-comment"></i>  {Comments.length || ''}</span>
-        </div>
-        <div>
-          <CreateComment PostId={id} />
-        </div>
-        <div>
-          {Comments.length && Comments.map(comment => (
-            <Comment comment={comment} />
-          )) || ''}
-        </div>
+      <AccountConsumer>
+        {value => (
+          <div className="container">
+            <div className="">
+              @{User.username}
+            </div>
+            <div className="">
+              <h4>{content}</h4>
+            </div>
+            <div className="">
+              <span style={{fontSize: '14px', color: 'grey'}}>{moment(createdAt).format('h:mm A - MMM D YYYY')}</span> 
+              <br/>
+              <span style={{fontSize: "14px", color: "grey"}}> <i class="far fa-comment"></i>  {Comments.length || ''}</span>
+            </div>
+            <div>
+              { value.username ? <CreateComment PostId={id} /> : 
+                <div class="alert alert-dark" role="alert">
+                  You must be signed in to comment.
+                </div>
+              }
+            </div>
+            <div>
+              {Comments.length && Comments.map(comment => (
+                <Comment comment={comment} />
+              )) || ''}
+            </div>
 
-      </div>
+          </div>
+
+        )}
+      </AccountConsumer>
     )
   }
 }

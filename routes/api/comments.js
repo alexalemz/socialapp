@@ -26,4 +26,22 @@ router.post('/', function(req, res) {
   })
 })
 
+// Delete a comment with a given id, as long as it belongs to the logged-in user
+router.delete('/:CommentId', function(req, res) {
+  const { CommentId } = req.params;
+
+  db.Comment.destroy({
+    where: {
+      id: CommentId,
+      UserId: req.user.id,
+    }
+  }).then(dbComment => {
+    console.log(`Comment with id ${CommentId} was deleted.`)
+    res.json(dbComment);
+  }).catch(err => {
+    console.log(err);
+    res.json(err);
+  })
+})
+
 module.exports = router;

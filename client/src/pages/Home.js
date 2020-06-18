@@ -33,6 +33,7 @@ export default class Home extends Component {
   render() {
     const { username, followers, followeds, name, pictureUrl, postCount } = this.state;
 
+    if (username)
     return (
       <div className="container">
         Home
@@ -88,5 +89,18 @@ export default class Home extends Component {
         </div>
       </div>
     )
+    else
+      return (
+        <div className="container">
+          <h2>Welcome to Social App!</h2>
+          <p>You can check out the latest posts from our users.
+            <a className="btn btn-primary mx-3" href="/users">View all users</a>
+          </p>
+          <p></p>
+          <p>Sign in to start posting.
+            <a className="btn btn-secondary mx-3" href="/login">Sign in</a>
+          </p>
+        </div>
+      )
   }
 }

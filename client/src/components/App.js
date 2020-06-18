@@ -42,12 +42,12 @@ class App extends Component {
                 <Switch>
                   {/* <Route exact path="/" component={Home} /> */}
                   <Route exact path="/" render={() => (
-                    this.state.username ? 
+                    this.state.username || true ? 
                       // <Home/> 
                       <Redirect to='/home' />
                     : 
-                      // <Redirect to='/login'/>
-                      <Login/>
+                      <Redirect to='/login'/>
+                      // <Login/>
                   )} />
                   <Route exact path="/home" component={Home} />
                   <Route exact path="/login" component={Login} />

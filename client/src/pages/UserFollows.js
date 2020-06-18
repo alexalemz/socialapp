@@ -91,11 +91,12 @@ export default class Users extends Component {
         </div> */}
         <div className='row'>
           <div className='col-12'>
-            {users.length && 
+            {users.length !== 0 ? 
               users.map(user => (
                 <UserCard user={user} />
                 // <p><Link to={`/users/${user.username}`}>@{user.username}</Link></p>
-              )) || ' '}
+              )) 
+            : followType === 'followers' ? `This user has no followers` : `This user is not following anyone`}
           </div>
         </div>
       </div>
