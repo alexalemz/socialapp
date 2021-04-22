@@ -15,6 +15,11 @@ export default class Home extends Component {
     postCount: '',
     // isFollowing: undefined,
     // isCurrentUser: undefined,
+
+    // This property 'loaded' will tell us whether the API call has been made and data has been retrieved.
+    // I wanted this so that I can figure out whether to render the page for a logged-in user or a guest.
+    // This can only be done once the data has come back. I don't want the guest view to render by default then be replaced a second later once the data comes back.
+    loaded: false,
   }
 
   componentDidMount() {
@@ -24,19 +29,22 @@ export default class Home extends Component {
       let pictureUrl = picture ? JSON.parse(picture).url : null;
 
       this.setState({
-        username, followers, followeds, name, pictureUrl, postCount
+        username, followers, followeds, name, pictureUrl, postCount, "loaded": true
       })
+    }).catch(err => {
+      console.log('Home page getUserProfile() fetch error', err)
+      this.setState({ "loaded": true })
     })
 
   }
 
   render() {
-    const { username, followers, followeds, name, pictureUrl, postCount } = this.state;
+    const { username, followers, followeds, name, pictureUrl, postCount, loaded } = this.state;
 
-    if (username)
+    if (username && loaded)
     return (
       <div className="container">
-        Home
+        {/* Home */}
         <div className="row">
           <div className="col-sm-4">
             <div className="card">
@@ -89,18 +97,31 @@ export default class Home extends Component {
         </div>
       </div>
     )
-    else
+    else if (!username && loaded)
       return (
-        <div className="container">
-          <h2>Welcome to Social App!</h2>
-          <p>You can check out the latest posts from our users.
-            <a className="btn btn-primary mx-3" href="/users">View all users</a>
+        <div className="container" style={{
+          margin: '50px auto',
+          textAlign: 'center',
+          backgroundColor: 'white',
+          border: '1px solid #ddd',
+          borderRadius: '5px',
+          padding: '40px 0 20px',
+          maxWidth: '900px'
+        }}>
+          <h2 className="mb-5">Welcome to Social App!</h2>
+          {/* <p>You can check out the latest posts from our users.
+            <a className="btn btn-primary ml-3" href="/users">View all users</a>
           </p>
-          <p></p>
           <p>Sign in to start posting.
-            <a className="btn btn-secondary mx-3" href="/login">Sign in</a>
-          </p>
+            <a className="btn btn-secondary ml-3" href="/login">Sign in</a>
+          </p> */}
+
+          <p style={{color: '#444'}}>Check out the latest posts from our users.</p>
+          <p><a className="btn btn-primary mb-4" href="/users">View all users</a></p>
+          <p style={{color: '#444'}}>Sign in to start posting.</p>
+          <p><a className="btn btn-secondary" href="/login">Sign in</a></p>
         </div>
       )
+    else return <div className="container" />
   }
 }

@@ -45,12 +45,14 @@ export default class Comment extends Component {
     const { comment, comment: {User, content, Comments} } = this.props;
     return (
       <div style={{
-        border: 'solid black 1px',
+        border: '1px solid rgb(214, 214, 214)',
         borderRadius: '15px',
         padding: '10px',
         margin: '10px 0',
+        background: 'white',
       }}>
-        <span><b><Link to={`/users/${User.username}`}>@{User.username}</Link></b></span> {/* <br/> */}
+        {/* <DivImg className="post-details-user-img" imgUrl={pictureUrl}/> */}
+        <span style={{fontWeight: 'bold'}}>{User.name}</span> <span><Link to={`/users/${User.username}`} >@{User.username}</Link></span> {/* <br/> */}
         <span style={{fontSize: "14px", color: "grey"}}>- {this.state.timestamp}</span> <br/>
         <span /* key={id} */>{content}</span> <br/>
         {/* <span style={{fontSize: "14px", color: "grey"}}> <i class="far fa-comment"></i>  {Comments.length || ''}</span> */}

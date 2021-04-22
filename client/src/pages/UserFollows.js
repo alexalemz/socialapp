@@ -11,6 +11,7 @@ export default class Users extends Component {
     followers: [],
     followeds: [],
     // followType: undefined,
+    loaded: false, // Tracks whether the data has been retrieved from the API call
   }
 
   componentDidMount() {
@@ -39,12 +40,13 @@ export default class Users extends Component {
         followType,
         followers: Followers,
         followeds: Followeds,
+        "loaded": true,
       })
     })
   }
 
   render() {
-    const { username, name, /* followType,  */followers, followeds } = this.state;
+    const { username, name, /* followType,  */followers, followeds, loaded } = this.state;
     const followType = this.props.match.path.includes('following') ? 'following' : 'followers';
 
     // const users = (followType === 'followers') ? followers : followeds;
@@ -91,12 +93,12 @@ export default class Users extends Component {
         </div> */}
         <div className='row'>
           <div className='col-12'>
-            {users.length !== 0 ? 
+            {loaded ? (users.length !== 0 ? 
               users.map(user => (
                 <UserCard user={user} />
                 // <p><Link to={`/users/${user.username}`}>@{user.username}</Link></p>
               )) 
-            : followType === 'followers' ? `This user has no followers` : `This user is not following anyone`}
+            : followType === 'followers' ? `This user has no followers` : `This user is not following anyone`) : ''}
           </div>
         </div>
       </div>

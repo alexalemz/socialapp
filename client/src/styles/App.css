@@ -50,6 +50,7 @@
   height: 60px;
   margin: 10px 10px;
   border-radius: 50%;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,.2));
 }
 .post-content {
   padding-left: 5px;
@@ -78,6 +79,23 @@
   .post-timestamp, .post-comments {
     /* font-size: .75rem; */
   }
+}
+/* This is the post container in PostDetails.js, which is page where you can comment on a post. */
+.post-details {
+  border: 1px solid #dedede;
+  padding: 10px;
+  border-radius: 10px;
+  background: white;
+  margin-bottom: 10px;
+  display: flex;
+}
+.post-details-user-img {
+  width: 100px;
+  height: 100px;
+  margin: 10px 10px;
+  margin-right: 20px;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,.2));
 }
 
 /* This should be a class, but using React-Bootstrap, it makes it an id. */
@@ -149,6 +167,8 @@
 }
 .profile-name {
   font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 5px;
 }
 .profile-username {
   color: grey;
@@ -209,6 +229,11 @@
 }
 .user-card .user-username a{
   color: grey;
+}
+
+/* Edit Profile Page */
+#edit-profile-page label {
+  color: #6a6a6a;
 }
 
 /* @keyframes App-logo-spin {

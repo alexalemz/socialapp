@@ -30,6 +30,7 @@ class CreateComment extends Component {
               resize: "none",
               border: "1px solid #d6d6d6",
               padding: "5px 10px",
+              borderRadius: "5px"
               // margin: "10px",
             }}
             maxLength="280"

@@ -5,7 +5,7 @@ import Post from './Post'
 class PostFeed extends Component {
   state = {
     posts: [],
-    postsReceived: false,
+    postsReceived: false, // This functions the same as the 'loaded' property in other components.
   }
 
   componentDidMount() {
@@ -37,13 +37,14 @@ class PostFeed extends Component {
   }
 
   render() {
+    const { posts, postsReceived } = this.state;
     return (
       <div>
-        <h5>Posts</h5>
-        {this.state.posts.length && 
-          this.state.posts.map(post => {
+        <h2 style={{ textAlign:"center", fontSize:"24px" }}>Posts</h2>
+        {posts.length && 
+          posts.map(post => {
             return (<Post key={post.id} post={post} />)
-        }) || <p>{this.state.postsReceived ? "This user has no posts." : "Fetching posts..."}</p>}
+        }) || <p>{ postsReceived ? "This user has no posts." : "Fetching posts..." }</p>}
       </div>
     )
   }

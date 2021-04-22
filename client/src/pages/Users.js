@@ -21,7 +21,7 @@ export default class Users extends Component {
     console.log("This.state.users", this.state.users)
     return (
       <div className="container">
-        Users
+        <h2 style={{fontSize:"20px", margin:"10px 0"}}>Users</h2>
         {this.state.users.length && 
           this.state.users.map(user => (
             <UserCard key={`user${user.id}`} user={user} />

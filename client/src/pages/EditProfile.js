@@ -1,4 +1,5 @@
 import React, { Component, useEffect, useContext } from 'react';
+import Form from 'react-bootstrap/Form';
 import { Input } from '../components/Form';
 import API from '../utils/API';
 import { AccountContext, AccountConsumer } from '../providers/AccountProvider';
@@ -99,31 +100,75 @@ export default class EditProfile extends Component {
   render() {
     console.log('Edit profile state', this.state);
 
+    // Styling
+    const borderRadius = '5px';
+    const border = "1px solid #d6d6d6";
+
+    const descriptionStyle = {
+      borderBottom: border,
+      marginBottom: '30px',
+      // paddingLeft: '20px',
+      // position: 'relative',
+      // left: '-20px',
+    }
+    const imgStyle = {
+      // maxWidth: '20%', 
+      // maxHeight: '20%', 
+      maxWidth: '220px', 
+      maxHeight: '220px', 
+      borderRadius: '10%', 
+      margin: '10px 0'
+    };
+    const nameStyle = {
+      padding: '5px 10px',
+      border,
+      borderRadius,
+      width: '300px'
+    };
+    const bioStyle = {
+      resize: 'none',
+      padding: '5px 10px',
+      border,
+      borderRadius,
+      width: '300px',
+      height: '100px'
+    };
+
     return (
-      <div className="container">
+      <div className="container py-4" id="edit-profile-page">
         {/* Hello, there! <br/> */}
-        You can edit the details of your profile including display name, bio, website, profile picture, etc.
+        {/* Description */}
+        <div style={descriptionStyle}>
+          <h2>Profile Editor</h2>
+          <p style={{}} className='text-muted'>You can edit the details of your profile including display name, bio, website, profile picture, etc.</p>
+        </div>
+        {/* <br/> */}
 
         <form action='/api/users/profile' method='post' enctype='multipart/form-data' id='editProfileForm'
           onChange={this.handleInputChange}
           onSubmit={this.submitForm}
         >
+          <Form.Group>
+            <label for='profilepicture'>Profile picture</label> <br/>
+            {/* Display the current profile picture */}
+            {this.state.picture && <><img style={imgStyle} src={this.state.picture} /> <br/></>}
+            <input type='file' name='profilepicture' id='profilepicture' accept='image/*' className='btn' /> <br/>
+          </Form.Group>
 
-          <label for='profilepicture'>Profile picture</label> <br/>
-          {/* Display the current profile picture */}
-          {this.state.picture && <img style={{maxWidth: '20%', maxHeight: '20%', borderRadius: '10%'}} src={this.state.picture} />}
-          <input type='file' name='profilepicture' id='profilepicture' accept='image/*' className='btn' /> <br/>
+          <Form.Group>
+            <label for='name'>Name</label> <br/>
+            <input type='text' name='name' id='name' value={this.state.name} style={nameStyle} /> <br/>
+          </Form.Group>
 
-          <label for='name'>Name</label> <br/>
-          <input type='text' name='name' id='name' value={this.state.name} /> <br/>
-
-          <label for='bio'>Bio</label> <br/>
-          <textarea name='bio' id='bio' value={this.state.bio} style={{resize: "none"}} /> <br/>
+          <Form.Group>
+            <label for='bio'>Bio</label> <br/>
+            <textarea name='bio' id='bio' value={this.state.bio} style={bioStyle} /> <br/>
+          </Form.Group>
 
           {/* <label for='website'>Website</label> <br/> */}
           {/* <input type='text' name='website' id='website' value={this.state.website} /> <br/> */}
 
-          <input type='submit' value='Save changes' className='btn btn-primary' />
+          <input type='submit' value='Save changes' className='btn btn-primary mt-2' />
         </form>
       </div>
     )

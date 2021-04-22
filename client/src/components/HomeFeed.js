@@ -19,7 +19,8 @@ class HomeFeed extends Component {
   render() {
     return (
       <div>
-        <h5>Feed</h5>
+        {/* <h2 style={{ textAlign:"center", fontSize:"24px" }}>Feed</h2> */}
+        <h5 style={{textAlign: 'center'}}>Feed</h5>
         {this.state.posts.length && 
           this.state.posts.map(post => {
             return (<Post key={post.id} post={post} />)

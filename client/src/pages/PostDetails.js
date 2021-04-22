@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import API from '../utils/API'
 import Comment from '../components/Comment'
 import CreateComment from '../components/CreateComment'
+import DivImg from '../components/DivImg'
 import { AccountConsumer } from '../providers/AccountProvider';
 
 const moment = require('moment')
@@ -15,7 +16,8 @@ export default class PostDetails extends Component {
     content: '',
     createdAt: undefined,
     User: {},
-    Comments: []
+    Comments: [],
+    loaded: false,
   }
 
   componentDidMount() {
@@ -27,29 +29,42 @@ export default class PostDetails extends Component {
     console.log('PostId', PostId)
     API.getPostDetails(PostId).then(res => {
       const { id, content, createdAt, User, Comments } = res.data;
-      this.setState({id, content, createdAt, User, Comments});
+      this.setState({id, content, createdAt, User, Comments, "loaded": true});
     })
   }
 
   render() {
-    const { id, content, createdAt, User, Comments } = this.state;
+    const { id, content, createdAt, User, Comments, loaded } = this.state;
     let contextValue = this.context;
     let username = contextValue.username;
+    const pictureUrl = loaded && User ? JSON.parse(User.picture).url : null;
+
+    console.log("PostDetails User object", User)
+  
 
     return (
       <AccountConsumer>
         {value => (
-          <div className="container">
-            <div className="">
-              @{User.username}
-            </div>
-            <div className="">
-              <h4>{content}</h4>
-            </div>
-            <div className="">
-              <span style={{fontSize: '14px', color: 'grey'}}>{moment(createdAt).format('h:mm A - MMM D YYYY')}</span> 
-              <br/>
-              <span style={{fontSize: "14px", color: "grey"}}> <i class="far fa-comment"></i>  {Comments.length || ''}</span>
+          loaded ? <div className="container">
+            <div className="post-details">
+              <div><a href={`/users/${User.username}`}>
+                <DivImg className="post-details-user-img" imgUrl={pictureUrl}/>
+                </a>
+              </div>
+              <div>
+                <div className=""><a href={`/users/${User.username}`} style={{textDecoration: 'none', color: 'inherit'}}>
+                  <span style={{fontSize: '20px', fontWeight: 'bold'}}>{User.name}</span> <span style={{fontSize: '16px', color: 'grey'}}>@{User.username}</span>
+                  </a>
+                </div>
+                <div className="">
+                  <p style={{fontSize: '28px', marginBottom: '.25rem'}}>{content}</p>
+                </div>
+                <div className="">
+                  <span style={{fontSize: '14px', color: 'grey'}}>{moment(createdAt).format('h:mm A - MMM D YYYY')}</span> 
+                  <br/>
+                  <span style={{fontSize: "14px", color: "grey"}}> <i class="far fa-comment"></i>  {Comments.length || ''}</span>
+                </div>
+              </div>
             </div>
             <div>
               { value.username ? <CreateComment PostId={id} /> : 
@@ -64,7 +79,7 @@ export default class PostDetails extends Component {
               )) || ''}
             </div>
 
-          </div>
+          </div> : <div/>
 
         )}
       </AccountConsumer>

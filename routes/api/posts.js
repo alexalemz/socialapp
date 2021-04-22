@@ -130,8 +130,8 @@ router.get('/:PostId', function(req, res) {
       id: PostId
     },
     include: [
-      {association: 'User', attributes: ['id', 'username']},
-      {association: 'Comments', include: [{association: 'User', attributes: ['id', 'username']}]},
+      {association: 'User', attributes: ['id', 'username', 'name', 'picture']},
+      {association: 'Comments', include: [{association: 'User', attributes: ['id', 'username', 'name', 'picture']}]},
     ]
   }).then(dbPost => {
     // Add a property for each comment 'fromCurrentUser' so that the user can delete their own comment.
@@ -139,7 +139,7 @@ router.get('/:PostId', function(req, res) {
     // Make the record plain
     dbPost = dbPost.get({plain: true})
     dbPost.Comments = dbPost.Comments.map(comment => {
-      comment.fromCurrentUser = req.user.id ? (req.user.id === comment.UserId ? true : false) : false;
+      comment.fromCurrentUser = (req.user && req.user.id) ? (req.user.id === comment.UserId ? true : false) : false;
       return comment;
     })
     console.log(dbPost);

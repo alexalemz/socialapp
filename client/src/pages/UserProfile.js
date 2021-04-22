@@ -19,6 +19,7 @@ export default class Home extends Component {
     bio: undefined,
     picture: undefined,
     postCount: undefined,
+    loaded: false,
   }
   
   componentDidMount() {
@@ -51,6 +52,7 @@ export default class Home extends Component {
         bio,
         picture,
         postCount,
+        "loaded": true,
       })
     })
   }
@@ -74,10 +76,10 @@ export default class Home extends Component {
   }
   
   render() {
-    const { username, name, email, followers, followeds, isFollowing, isCurrentUser, picture, bio, postCount } = this.state;
+    const { username, name, email, followers, followeds, isFollowing, isCurrentUser, picture, bio, postCount, loaded } = this.state;
     const userPath = `/users/${username}`;
       
-    return (
+    if (loaded) return (
       <div className="container-fluid">
         <div className="row">
           <span className="mx-auto">
@@ -119,7 +121,7 @@ export default class Home extends Component {
                     backgroundSize: "cover",
                   }}
                 />}
-              <h4 className="profile-name">{name}</h4>
+              <p className="profile-name">{name}</p>
               {/* On Mobile, username link's to profile page, so user can see posts instead of followers */}
               <p className="profile-username d-none d-md-block">{`@${username}`}</p>
               <Link to={`/users/${username}`}><p className="profile-username d-block d-md-none">{`@${username}`}</p></Link>
@@ -157,6 +159,8 @@ export default class Home extends Component {
         </div>
       </div>
     )
+
+    else return <div/>
   }
 }
 

@@ -55,11 +55,13 @@ export default class Login extends Component {
   }
 
   render() {
+    const { login } = this.state;
     return (
       <AccountConsumer>
         {({updateAccount}) => (
-          <div className="container">
+          <div className="container my-5">
             {/* Login */}
+            <h2 className="mb-4" style={{ color: '#6a6a6a' }}>{ login ? 'Sign in' : 'Create an account' }</h2>
             <form onChange={this.handleInputChange} onSubmit={(event) => this.handleFormSubmit(updateAccount, event)}>
               <Input value={this.state.email} name="email" type="email" id="email" label="Email address" placeholder="name@example.com" />
               {!this.state.login && <Input value={this.state.username} name="username" type="text" id="username" label="Username" placeholder="username" />}

@@ -35,7 +35,12 @@ class App extends Component {
     return (
       <AccountProvider value={this.state}>
         <Router>
-          <div className="bg-light">
+          <div className="bg-light" 
+            style={{
+              // This makes the background fill up the whole height of the page, even when there isn't much content on the page.
+              minHeight: '100vh'
+            }} 
+          >
             <Header />
             {/* <AccountConsumer>
               {(value) => ( */}
