@@ -34,7 +34,7 @@ class CreateComment extends Component {
               // margin: "10px",
             }}
             maxLength="280"
-            placeholder="Make a comment"
+            placeholder="Leave a comment"
             value={content}
             onChange={e => this.setState({ content: e.target.value })}
           />
