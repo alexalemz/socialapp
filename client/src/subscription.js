@@ -15,7 +15,8 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 function sendSubscription(subscription) {
-  return fetch(`${process.env.REACT_APP_API_URL}/notifications/subscribe`, {
+  const reactAppApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_API_URL;
+  return fetch(`${reactAppApiUrl}/notifications/subscribe`, {
     method: 'POST',
     body: JSON.stringify(subscription),
     headers: {
@@ -88,7 +89,8 @@ export function unsubscribeUser() {
     if (existedSubscription === null) return;
 
     // Remove the subscription from the database
-    fetch(`${process.env.REACT_APP_API_URL}/notifications/unsubscribe`, {
+    const reactAppApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_API_URL;
+    fetch(`${reactAppApiUrl}/notifications/unsubscribe`, {
       method: 'POST',
       body: JSON.stringify(existedSubscription),
       headers: {
