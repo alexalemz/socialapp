@@ -8,7 +8,8 @@ var router = express.Router();
 router.get('/', function(req, res) {
   // res.send("Post api");
 
-  const { UserId, username } = req.query;
+  // Adding an optional limit
+  const { UserId, username, limit } = req.query;
   const searchParams = {};
   if (UserId) {
     searchParams.UserId = UserId
@@ -20,6 +21,7 @@ router.get('/', function(req, res) {
   console.log("PostsAPI Backend. req.query", req.query)
   db.Post.findAll({
     // where: searchParams,
+    limit: (limit ? parseInt(limit) : undefined),
     include: [
       {
         model: db.User,
